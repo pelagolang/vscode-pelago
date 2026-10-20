@@ -1,0 +1,37 @@
+# Builds the .vsix and attaches it to a GitHub release.
+#   git tag v0.0.2 && git push origin v0.0.2      (the tag must match "version" in package.json)
+# or run the workflow by hand (Actions, release, Run workflow) to release the current package.json version.
+name: release
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run check
+      - run: npm run package
+      - name: Create or update the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          version=$(node -p "require('./package.json').version")
+          tag="v$version"
+          if [ "${GITHUB_REF_TYPE:-}" = "tag" ] && [ "$GITHUB_REF_NAME" != "$tag" ]; then
+            echo "tag $GITHUB_REF_NAME does not match package.json version $version"; exit 1
+          fi
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" dist/*.vsix --clobber
+          else
+            gh release create "$tag" dist/*.vsix --target "$GITHUB_SHA" --title "Pelago for VS Code $version" \
+              --notes "Install: Extensions view, ... menu, Install from VSIX. Changes: see CHANGELOG.md." --prerelease
+          fi
