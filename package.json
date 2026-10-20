@@ -4,6 +4,7 @@
   "description": "Syntax highlighting and snippets for the Pelago programming language (.pel)",
   "version": "0.0.2",
   "publisher": "pelagolang",
+  "license": "MIT OR Apache-2.0",
   "icon": "images/icon.png",
   "galleryBanner": {
     "color": "#0b2f45",
