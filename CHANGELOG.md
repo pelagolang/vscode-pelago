@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- First version published by the release workflow (Marketplace and Open VSX on a version tag). No functional changes.
+
 ## 0.1.0
 
 - Language server: the extension starts `pelago lsp` (diagnostics, hover, definition, references, completion, outline). Settings `pelago.serverPath` and `pelago.semanticHighlighting`, command `Pelago: Restart Language Server`, and a clear message with an Open Settings button when the binary is missing. Needs VS Code 1.82 or newer.
