@@ -20,7 +20,7 @@ them, copy a rule into your own `editor.tokenColorCustomizations` in settings; y
 ## The grammar is generated
 
 `syntaxes/pelago.tmLanguage.json` is a copy of `editors/textmate/pelago.tmLanguage.json` in
-[pelagolang/pelago](https://github.com/pelagolang/pelago), which is generated from the compiler's keyword tables. Do not edit it by hand:
-after a keyword change there, copy the new file here and bump the version.
+[pelagolang/pelago](https://github.com/pelagolang/pelago), which is generated from the compiler's keyword tables. Do not edit it by hand.
+When that file changes on pelago's `main`, a workflow there (`sync-vscode-grammar`) opens a PR here with the new copy and a patch version bump.
 
 The language server (`pelago lsp`) is not wired into this extension yet; it would need a small client using `vscode-languageclient`.
