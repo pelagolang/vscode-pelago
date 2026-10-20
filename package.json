@@ -4,6 +4,26 @@
   "description": "Syntax highlighting and snippets for the Pelago programming language (.pel)",
   "version": "0.0.2",
   "publisher": "pelagolang",
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#0b2f45",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pelagolang/vscode-pelago.git"
+  },
+  "homepage": "https://github.com/pelagolang/vscode-pelago#readme",
+  "bugs": {
+    "url": "https://github.com/pelagolang/vscode-pelago/issues"
+  },
+  "keywords": [
+    "pelago",
+    "pel",
+    "syntax",
+    "highlighting",
+    "snippets"
+  ],
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -11,6 +31,15 @@
     "Programming Languages",
     "Snippets"
   ],
+  "scripts": {
+    "check": "node scripts/check.js && node scripts/tokenize.js",
+    "package": "node -e \"require('fs').mkdirSync('dist',{recursive:true})\" && vsce package --out dist/"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "4.0.0",
+    "vscode-oniguruma": "2.0.1",
+    "vscode-textmate": "9.3.2"
+  },
   "contributes": {
     "languages": [
       {

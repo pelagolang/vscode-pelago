@@ -4,8 +4,8 @@ Syntax highlighting, bracket and comment settings and snippets for [Pelago](http
 
 ## Install
 
-Run `sh scripts/build-vsix.sh` (needs only `zip`); it writes `dist/pelago-<version>.vsix`. In VS Code: Extensions view, `...` menu,
-"Install from VSIX...".
+From a `.vsix` (until the extension is on the Marketplace): `npm ci` then `npm run package` (Node 22 or later; works the same in PowerShell) writes
+`dist/pelago-<version>.vsix`. In VS Code: Extensions view, `...` menu, "Install from VSIX...". CI builds the same file on every push (the `vsix` artifact).
 
 ## Colours
 
@@ -15,7 +15,8 @@ contributes `configurationDefaults` for `editor.tokenColorCustomizations`: every
 files only. The colours are mid-tones (about 3.5:1 or better on both white and `#1e1e1e`) so they read on dark and light themes. To change
 them, copy a rule into your own `editor.tokenColorCustomizations` in settings; yours win.
 
-`node scripts/check.js` (run by CI) fails if a theme, a non-token setting or an unscoped rule is ever added.
+`npm run check` (run by CI) fails if a theme, a non-token setting or an unscoped rule is ever added, and tokenizes sample code with the real
+grammar engine (`vscode-textmate`) to catch a rule that no longer matches anything. `node scripts/tokenize.js <files or folders>` tokenizes your own `.pel` files.
 
 ## The grammar is generated
 

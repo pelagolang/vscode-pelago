@@ -1,0 +1,9 @@
+.github/**
+.vscode/**
+scripts/**
+images/icon.svg
+dist/**
+node_modules/**
+package-lock.json
+PUBLISHING.md
+.gitignore
