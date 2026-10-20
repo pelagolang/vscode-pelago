@@ -24,7 +24,15 @@ grammar engine (`vscode-textmate`) to catch a rule that no longer matches anythi
 [pelagolang/pelago](https://github.com/pelagolang/pelago), which is generated from the compiler's keyword tables. Do not edit it by hand.
 When that file changes on pelago's `main`, a workflow there (`sync-vscode-grammar`) opens a PR here with the new copy and a patch version bump.
 
-The language server (`pelago lsp`) is not wired into this extension yet; it would need a small client using `vscode-languageclient`.
+## Language server (errors as you type)
+
+The extension starts `pelago lsp` for every `.pel` file, so syntax and type errors appear as squiggles and in the Problems panel, with hover, go to definition, find references, completion and outline.
+
+1. Install the `pelago` executable and make sure `pelago --help` works in a terminal (on Windows, add the folder holding `pelago.exe` to your PATH, then restart VS Code). Or skip PATH and set **Pelago: Server Path** (`pelago.serverPath`) to the full path of `pelago.exe`.
+2. Open a `.pel` file. If the binary cannot be started you get an error message with an **Open Settings** button.
+3. After changing the setting, run **Pelago: Restart Language Server** from the Command Palette.
+
+`pelago.semanticHighlighting` (off by default) lets the server's semantic tokens recolour code; leave it off to keep the TextMate colours.
 
 ## Licence
 

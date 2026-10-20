@@ -1,8 +1,8 @@
 {
   "name": "pelago",
   "displayName": "Pelago",
-  "description": "Syntax highlighting and snippets for the Pelago programming language (.pel)",
-  "version": "0.0.2",
+  "description": "Syntax highlighting, snippets and language-server support (errors as you type) for the Pelago language (.pel)",
+  "version": "0.1.0",
   "publisher": "pelagolang",
   "license": "MIT OR Apache-2.0",
   "icon": "images/icon.png",
@@ -26,7 +26,7 @@
     "snippets"
   ],
   "engines": {
-    "vscode": "^1.74.0"
+    "vscode": "^1.82.0"
   },
   "categories": [
     "Programming Languages",
@@ -34,12 +34,14 @@
   ],
   "scripts": {
     "check": "node scripts/check.js && node scripts/tokenize.js",
-    "package": "node -e \"require('fs').mkdirSync('dist',{recursive:true})\" && vsce package --out dist/"
+    "package": "npm run build && node -e \"require('fs').mkdirSync('dist',{recursive:true})\" && vsce package --out dist/",
+    "build": "esbuild src/extension.js --bundle --platform=node --format=cjs --external:vscode --outfile=out/extension.js --minify"
   },
   "devDependencies": {
     "@vscode/vsce": "4.0.0",
     "vscode-oniguruma": "2.0.1",
-    "vscode-textmate": "9.3.2"
+    "vscode-textmate": "9.3.2",
+    "esbuild": "0.25.10"
   },
   "contributes": {
     "languages": [
@@ -232,6 +234,35 @@
           }
         ]
       }
-    }
+    },
+    "configuration": {
+      "title": "Pelago",
+      "properties": {
+        "pelago.serverPath": {
+          "type": "string",
+          "default": "pelago",
+          "scope": "machine-overridable",
+          "markdownDescription": "Path to the `pelago` executable that runs the language server (`pelago lsp`). The default looks `pelago` up on your PATH; on Windows use e.g. `C:\\\\tools\\\\pelago.exe`."
+        },
+        "pelago.semanticHighlighting": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Use the language server's semantic tokens for colouring. Off by default so the TextMate colours stay as designed."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "pelago.restartServer",
+        "title": "Pelago: Restart Language Server"
+      }
+    ]
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:pelago"
+  ],
+  "dependencies": {
+    "vscode-languageclient": "9.0.1"
   }
 }
