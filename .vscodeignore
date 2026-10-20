@@ -3,6 +3,7 @@
 scripts/**
 images/icon.svg
 dist/**
+src/**
 node_modules/**
 package-lock.json
 PUBLISHING.md
