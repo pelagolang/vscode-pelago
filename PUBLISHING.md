@@ -27,3 +27,13 @@ Microsoft retires global Azure DevOps tokens on 2026-12-01; after that use `vsce
 
 - The extension never ships or changes a theme or workbench colours. `scripts/check.js` (in CI) enforces it.
 - `syntaxes/pelago.tmLanguage.json` is generated in the pelago repository; never edit it here.
+
+## Automated publishing (release workflow)
+
+Pushing a tag `v<version>` (it must equal `version` in `package.json`) builds the `.vsix`, attaches it to the GitHub release and publishes it.
+
+1. In this repository: Settings, Secrets and variables, Actions, New repository secret, name `VSCE_PAT`, value the Azure DevOps token (scope Marketplace, Manage; organisation "All accessible organizations"). The publisher `pelagolang` must exist and match `publisher` in `package.json`.
+2. Optional: a secret `OVSX_PAT` with the Open VSX token. Without it the Open VSX step is skipped.
+3. `git tag v<version> && git push origin v<version>`.
+
+Without `VSCE_PAT` the workflow only builds and creates a GitHub pre-release. With it, the release is marked as a full release after the Marketplace publish succeeds. Running the workflow by hand never publishes.
