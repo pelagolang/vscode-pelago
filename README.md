@@ -25,3 +25,7 @@ grammar engine (`vscode-textmate`) to catch a rule that no longer matches anythi
 When that file changes on pelago's `main`, a workflow there (`sync-vscode-grammar`) opens a PR here with the new copy and a patch version bump.
 
 The language server (`pelago lsp`) is not wired into this extension yet; it would need a small client using `vscode-languageclient`.
+
+## Licence
+
+MIT OR Apache-2.0, at your option: see `LICENSE-MIT` and `LICENSE-APACHE`.
