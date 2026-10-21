@@ -14,7 +14,10 @@ const onigLib = onig.loadWASM(wasm).then(() => ({
 }));
 const registry = new vt.Registry({
   onigLib,
-  loadGrammar: async () => vt.parseRawGrammar(fs.readFileSync(path.join(root, "syntaxes/pelago.tmLanguage.json"), "utf8"), "pelago.tmLanguage.json"),
+  loadGrammar: async (scope) => {
+    const file = scope === "source.pelago-manifest" ? "pelago-manifest.tmLanguage.json" : "pelago.tmLanguage.json";
+    return vt.parseRawGrammar(fs.readFileSync(path.join(root, "syntaxes", file), "utf8"), file);
+  },
 });
 
 const sample = `// a comment
@@ -37,6 +40,47 @@ function files(p) {
   const st = fs.statSync(p);
   if (st.isFile()) return [p];
   return fs.readdirSync(p).flatMap((n) => (n === "target" || n === ".git" || n === "node_modules" ? [] : files(path.join(p, n)))).filter((f) => f.endsWith(".pel"));
+}
+
+// The `pelago.toml` grammar: every construct of the sample must get its scope.
+async function checkManifest() {
+  const grammar = await registry.loadGrammar("source.pelago-manifest");
+  if (!grammar) throw new Error("the manifest grammar did not load");
+  const sample = [
+    ["# a comment", "comment.line.number-sign"],
+    ["[package]", "entity.name.section"],
+    ["[[bin]]", "entity.name.section"],
+    ["name = \"demo\\n\"", "string.quoted.double"],
+    ["name = 'demo'", "string.quoted.single"],
+    ["version.workspace = true", "constant.language.boolean"],
+    ["n = 1_000", "constant.numeric.integer"],
+    ["pi = 3.14", "constant.numeric.float"],
+    ["when = 2026-10-21T08:00:00Z", "constant.other.datetime"],
+    ["deps = [\"a\", \"b\"]", "meta.array"],
+    ["dep = { path = \"../x\" }", "meta.table.inline"],
+  ];
+  const seen = new Set();
+  for (const [line, scope] of sample) {
+    const tokens = grammar.tokenizeLine(line, vt.INITIAL).tokens;
+    if (!tokens.some((t) => t.scopes.some((s) => s.startsWith(scope)))) {
+      console.error("FAIL: `" + line + "` has no `" + scope + "` token");
+      process.exitCode = 1;
+    }
+    tokens.forEach((t) => t.scopes.forEach((s) => seen.add(s)));
+  }
+  let stack = vt.INITIAL;
+  for (const line of ['text = """', "a multi-line # not a comment", '"""', "after = 1"]) {
+    const r = grammar.tokenizeLine(line, stack);
+    stack = r.ruleStack;
+    if (line.startsWith("a multi") && r.tokens.some((t) => t.scopes.some((s) => s.startsWith("comment")))) {
+      console.error("FAIL: a `#` inside a multi-line string is a comment");
+      process.exitCode = 1;
+    }
+    if (line === "after = 1" && !r.tokens.some((t) => t.scopes.some((s) => s.startsWith("constant.numeric.integer")))) {
+      console.error("FAIL: the multi-line string did not end");
+      process.exitCode = 1;
+    }
+  }
 }
 
 (async () => {
@@ -80,5 +124,6 @@ function files(p) {
       }
     }
   }
+  if (args.length === 0) await checkManifest();
   console.log("ok: " + lines + " lines tokenized, " + seen.size + " distinct scopes");
 })().catch((e) => { console.error("FAIL: " + e.message); process.exit(1); });
