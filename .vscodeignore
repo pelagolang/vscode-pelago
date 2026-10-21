@@ -2,6 +2,7 @@
 .vscode/**
 scripts/**
 images/icon.svg
+images/README.md
 dist/**
 src/**
 node_modules/**
