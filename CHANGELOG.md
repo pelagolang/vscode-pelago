@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.4
+
+- `pelago.toml` is now its own language, "Pelago Manifest", with the Pelago file icon and a small TOML grammar (comments, tables, strings, numbers, dates, arrays, inline tables). It uses only the colours of your theme. Because VS Code gives one language per file, `pelago.toml` is no longer in "TOML" mode, so other TOML extensions stop applying to that one file.
+
 ## 0.1.3
 
 - New Pelago icon (monoline P, dot and wave) for the extension, and a `.pel` file icon for editors and icon themes that use the language icon. The icon is not a theme: nothing outside `.pel` files changes. Gallery banner colour matches the brand navy.
