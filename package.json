@@ -7,7 +7,7 @@
   "license": "MIT OR Apache-2.0",
   "icon": "images/icon.png",
   "galleryBanner": {
-    "color": "#0b2f45",
+    "color": "#0B2239",
     "theme": "dark"
   },
   "repository": {
@@ -54,7 +54,11 @@
         "extensions": [
           ".pel"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./images/file-icon-light.svg",
+          "dark": "./images/file-icon-dark.svg"
+        }
       }
     ],
     "grammars": [
