@@ -2,7 +2,7 @@
   "name": "pelago",
   "displayName": "Pelago",
   "description": "Syntax highlighting, snippets and language-server support (errors as you type) for the Pelago language (.pel)",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "publisher": "pelagolang",
   "license": "MIT OR Apache-2.0",
   "icon": "images/icon.png",

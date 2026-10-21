@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.3
 
 - New Pelago icon (monoline P, dot and wave) for the extension, and a `.pel` file icon for editors and icon themes that use the language icon. The icon is not a theme: nothing outside `.pel` files changes. Gallery banner colour matches the brand navy.
 
