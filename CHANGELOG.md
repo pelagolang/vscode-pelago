@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- The "Pelago Manifest" language now belongs to `pelago.yaml` (the compiler's config file moved from `pelago.toml` to a strict YAML subset): comments, keys, quoted strings, booleans, whole numbers and `- ` list items, in your theme's colours. `pelago.toml` is no longer recognised.
+
 ## 0.1.4
 
 - `pelago.toml` is now its own language, "Pelago Manifest", with the Pelago file icon and a small TOML grammar (comments, tables, strings, numbers, dates, arrays, inline tables). It uses only the colours of your theme. Because VS Code gives one language per file, `pelago.toml` is no longer in "TOML" mode, so other TOML extensions stop applying to that one file.

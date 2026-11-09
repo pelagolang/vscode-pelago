@@ -64,10 +64,10 @@
         "id": "pelago-manifest",
         "aliases": [
           "Pelago Manifest",
-          "pelago.toml"
+          "pelago.yaml"
         ],
         "filenames": [
-          "pelago.toml"
+          "pelago.yaml"
         ],
         "configuration": "./manifest-language-configuration.json",
         "icon": {

@@ -42,22 +42,23 @@ function files(p) {
   return fs.readdirSync(p).flatMap((n) => (n === "target" || n === ".git" || n === "node_modules" ? [] : files(path.join(p, n)))).filter((f) => f.endsWith(".pel"));
 }
 
-// The `pelago.toml` grammar: every construct of the sample must get its scope.
+// The `pelago.yaml` grammar: every construct of the sample must get its scope.
 async function checkManifest() {
   const grammar = await registry.loadGrammar("source.pelago-manifest");
   if (!grammar) throw new Error("the manifest grammar did not load");
   const sample = [
     ["# a comment", "comment.line.number-sign"],
-    ["[package]", "entity.name.section"],
-    ["[[bin]]", "entity.name.section"],
-    ["name = \"demo\\n\"", "string.quoted.double"],
-    ["name = 'demo'", "string.quoted.single"],
-    ["version.workspace = true", "constant.language.boolean"],
-    ["n = 1_000", "constant.numeric.integer"],
-    ["pi = 3.14", "constant.numeric.float"],
-    ["when = 2026-10-21T08:00:00Z", "constant.other.datetime"],
-    ["deps = [\"a\", \"b\"]", "meta.array"],
-    ["dep = { path = \"../x\" }", "meta.table.inline"],
+    ["format: 1", "support.type.property-name"],
+    ["format: 1", "constant.numeric.integer"],
+    ["fmt:", "support.type.property-name"],
+    ["  indent: 4  # spaces", "comment.line.number-sign"],
+    ["name: \"demo\\n\"", "string.quoted.double"],
+    ["name: 'demo'", "string.quoted.single"],
+    ["strict: true", "constant.language.boolean"],
+    ["extra: {}", "constant.language.empty"],
+    ["deps:", "support.type.property-name"],
+    ["  - libs/*", "punctuation.definition.block.sequence.item"],
+    ["  - package: json", "support.type.property-name"],
   ];
   const seen = new Set();
   for (const [line, scope] of sample) {
@@ -68,18 +69,10 @@ async function checkManifest() {
     }
     tokens.forEach((t) => t.scopes.forEach((s) => seen.add(s)));
   }
-  let stack = vt.INITIAL;
-  for (const line of ['text = """', "a multi-line # not a comment", '"""', "after = 1"]) {
-    const r = grammar.tokenizeLine(line, stack);
-    stack = r.ruleStack;
-    if (line.startsWith("a multi") && r.tokens.some((t) => t.scopes.some((s) => s.startsWith("comment")))) {
-      console.error("FAIL: a `#` inside a multi-line string is a comment");
-      process.exitCode = 1;
-    }
-    if (line === "after = 1" && !r.tokens.some((t) => t.scopes.some((s) => s.startsWith("constant.numeric.integer")))) {
-      console.error("FAIL: the multi-line string did not end");
-      process.exitCode = 1;
-    }
+  const noComment = grammar.tokenizeLine("path: a#b", vt.INITIAL).tokens;
+  if (noComment.some((t) => t.scopes.some((s) => s.startsWith("comment")))) {
+    console.error("FAIL: a `#` inside a word is not a comment");
+    process.exitCode = 1;
   }
 }
 
