@@ -8,5 +8,5 @@ Copies of the Pelago brand assets from [`pelagolang/pelago`](https://github.com/
 | `icon.svg` | `icon/pelago-icon.svg` |
 | `file-icon-light.svg` | `editor/file-icons/pel-solid.svg` |
 | `file-icon-dark.svg` | `editor/file-icons/pel-solid-dark.svg` |
-| `manifest-icon-light.svg` | `editor/file-icons/pelago-toml-solid.svg` |
-| `manifest-icon-dark.svg` | `editor/file-icons/pelago-toml-solid-dark.svg` |
+| `manifest-icon-light.svg` | `editor/file-icons/pelago-yaml-solid.svg` |
+| `manifest-icon-dark.svg` | `editor/file-icons/pelago-yaml-solid-dark.svg` |
