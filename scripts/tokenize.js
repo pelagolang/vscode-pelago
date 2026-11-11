@@ -117,6 +117,25 @@ async function checkManifest() {
       }
     }
   }
+  if (args.length === 0) {
+    // `x!` and `x!!` after a name are the short spellings of `inout` and `sink`: scoped like the marks on calls. `!=` and `!x` stay plain operators.
+    for (const [line, mark, expected] of [
+      ["fn clear(xs!: [int]) { }", "!", true],
+      ["fn close(self!!) { }", "!!", true],
+      ["finish(scores!!)", "!!", true],
+      ["for x! of xs { }", "!", true],
+      ["each([total!, data!!] x ~> total += x)", "!", true],
+      ["const r = a != b", "!", false],
+      ["const r = !done", "!", false],
+    ]) {
+      const tokens = grammar.tokenizeLine(line, vt.INITIAL).tokens;
+      const marked = tokens.some((t) => line.slice(t.startIndex, t.endIndex).startsWith(mark) && t.scopes.includes("keyword.operator.mark.pelago"));
+      if (marked !== expected) {
+        console.error("FAIL: `" + line + "` " + (expected ? "has no mode mark token" : "has a mode mark token by mistake"));
+        process.exitCode = 1;
+      }
+    }
+  }
   if (args.length === 0) await checkManifest();
   console.log("ok: " + lines + " lines tokenized, " + seen.size + " distinct scopes");
 })().catch((e) => { console.error("FAIL: " + e.message); process.exit(1); });
