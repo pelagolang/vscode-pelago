@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- The short spellings `x!` (`inout x`) and `x!!` (`sink x`) get the same scope as the marks on calls (`keyword.operator.mark`), so they look like the call marks. `!=` and `!x` are unchanged.
 - The "Pelago Manifest" language now belongs to `pelago.yaml` (the compiler's config file moved from `pelago.toml` to a strict YAML subset): comments, keys, quoted strings, booleans, whole numbers and `- ` list items, in your theme's colours. `pelago.toml` is no longer recognised.
 
 ## 0.1.4
