@@ -9,6 +9,10 @@ The extension is on the Visual Studio Marketplace as **Pelago** (`pelagolang.pel
 To try a build from this repository instead: `npm ci` then `npm run package` (Node 22 or later; works the same in PowerShell) writes
 `dist/pelago-<version>.vsix`. In VS Code: Extensions view, `...` menu, "Install from VSIX...". CI builds the same file on every push (the `vsix` artifact), and the `release` workflow attaches it to a GitHub release when a tag `v<version>` is pushed (or when run by hand from the Actions tab).
 
+## Other files
+
+`pelago.yaml` (the compiler's config), and Islet's `islet.yaml`, `monorepo.yaml` and `islet.lock`, get their own file icons and light YAML colouring that uses your theme's colours only.
+
 ## Colours
 
 The grammar in `syntaxes/` names the *kind* of each word with scopes that all end in `.pelago`. The extension ships **no colour theme** and

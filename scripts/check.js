@@ -10,3 +10,17 @@ const rules = (d["editor.tokenColorCustomizations"] || {}).textMateRules || [];
 if (!rules.length) fail("no colour rules");
 for (const r of rules) for (const s of r.scope) if (!s.startsWith("source.pelago ")) fail("unscoped rule " + s);
 console.log("ok: " + rules.length + " rules, all scoped to source.pelago");
+
+// Every file the manifest points at must exist, so a renamed icon or grammar fails here and not in the editor.
+const fs = require("fs");
+const path = require("path");
+const root = path.join(__dirname, "..");
+const paths = [];
+for (const l of c.languages || []) {
+  if (l.configuration) paths.push(l.configuration);
+  if (l.icon) paths.push(l.icon.light, l.icon.dark);
+}
+for (const g of c.grammars || []) paths.push(g.path);
+for (const s of c.snippets || []) paths.push(s.path);
+for (const f of paths) if (!fs.existsSync(path.join(root, f))) fail("missing file " + f);
+console.log("ok: " + paths.length + " contributed files exist");

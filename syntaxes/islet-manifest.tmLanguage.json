@@ -1,0 +1,5 @@
+{
+  "name": "Islet Manifest",
+  "scopeName": "source.islet-manifest",
+  "patterns": [{ "include": "source.pelago-manifest" }]
+}

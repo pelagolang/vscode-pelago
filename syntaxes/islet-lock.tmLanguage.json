@@ -1,0 +1,5 @@
+{
+  "name": "Islet Lock",
+  "scopeName": "source.islet-lock",
+  "patterns": [{ "include": "source.pelago-manifest" }]
+}
