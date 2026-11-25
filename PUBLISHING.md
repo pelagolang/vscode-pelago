@@ -1,8 +1,8 @@
 # Publishing
 
-Not published yet. Nothing here is automatic: the owner publishes by hand. This file is left out of the `.vsix` (see `.vscodeignore`).
+The extension is published on the Visual Studio Marketplace (`pelagolang.pelago`). Releases are cut by pushing a tag (see the end of this file); the owner decides when. This file is left out of the `.vsix` (see `.vscodeignore`).
 
-## Before the first publish
+## First publish (done for the Marketplace; kept as a record)
 
 - [ ] **Make the repository public** (it is private today): the Marketplace page links to it and rewrites the README's relative links against it.
 - [x] **Licence.** `MIT OR Apache-2.0` (`LICENSE-MIT`, `LICENSE-APACHE`), chosen by the owner on 2026-10-20.
