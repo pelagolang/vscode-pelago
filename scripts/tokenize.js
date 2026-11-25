@@ -15,7 +15,7 @@ const onigLib = onig.loadWASM(wasm).then(() => ({
 const registry = new vt.Registry({
   onigLib,
   loadGrammar: async (scope) => {
-    const file = scope === "source.pelago-manifest" ? "pelago-manifest.tmLanguage.json" : "pelago.tmLanguage.json";
+    const file = scope.startsWith("source.pelago-") ? "pelago-manifest.tmLanguage.json" : scope === "source.pelago" ? "pelago.tmLanguage.json" : scope.slice("source.".length) + ".tmLanguage.json";
     return vt.parseRawGrammar(fs.readFileSync(path.join(root, "syntaxes", file), "utf8"), file);
   },
 });
@@ -68,6 +68,14 @@ async function checkManifest() {
       process.exitCode = 1;
     }
     tokens.forEach((t) => t.scopes.forEach((s) => seen.add(s)));
+  }
+  for (const scope of ["source.islet-manifest", "source.monorepo-manifest", "source.islet-lock"]) {
+    const g = await registry.loadGrammar(scope);
+    const t = g && g.tokenizeLine("name: demo  # note", vt.INITIAL).tokens;
+    if (!t || !t.some((x) => x.scopes.some((y) => y.startsWith("comment.line.number-sign")))) {
+      console.error("FAIL: " + scope + " does not reuse the manifest grammar");
+      process.exitCode = 1;
+    }
   }
   const noComment = grammar.tokenizeLine("path: a#b", vt.INITIAL).tokens;
   if (noComment.some((t) => t.scopes.some((s) => s.startsWith("comment")))) {

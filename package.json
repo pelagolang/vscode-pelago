@@ -2,7 +2,7 @@
   "name": "pelago",
   "displayName": "Pelago",
   "description": "Syntax highlighting, snippets and language-server support (errors as you type) for the Pelago language (.pel)",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "publisher": "pelagolang",
   "license": "MIT OR Apache-2.0",
   "icon": "images/icon.png",
@@ -74,6 +74,51 @@
           "light": "./images/manifest-icon-light.svg",
           "dark": "./images/manifest-icon-dark.svg"
         }
+      },
+      {
+        "id": "islet-manifest",
+        "aliases": [
+          "Islet Manifest",
+          "islet.yaml"
+        ],
+        "filenames": [
+          "islet.yaml"
+        ],
+        "configuration": "./manifest-language-configuration.json",
+        "icon": {
+          "light": "./images/islet-yaml-light.svg",
+          "dark": "./images/islet-yaml-dark.svg"
+        }
+      },
+      {
+        "id": "monorepo-manifest",
+        "aliases": [
+          "Monorepo Manifest",
+          "monorepo.yaml"
+        ],
+        "filenames": [
+          "monorepo.yaml"
+        ],
+        "configuration": "./manifest-language-configuration.json",
+        "icon": {
+          "light": "./images/monorepo-yaml-light.svg",
+          "dark": "./images/monorepo-yaml-dark.svg"
+        }
+      },
+      {
+        "id": "islet-lock",
+        "aliases": [
+          "Islet Lock",
+          "islet.lock"
+        ],
+        "filenames": [
+          "islet.lock"
+        ],
+        "configuration": "./manifest-language-configuration.json",
+        "icon": {
+          "light": "./images/islet-lock-light.svg",
+          "dark": "./images/islet-lock-dark.svg"
+        }
       }
     ],
     "grammars": [
@@ -86,6 +131,21 @@
         "language": "pelago-manifest",
         "scopeName": "source.pelago-manifest",
         "path": "./syntaxes/pelago-manifest.tmLanguage.json"
+      },
+      {
+        "language": "islet-manifest",
+        "scopeName": "source.islet-manifest",
+        "path": "./syntaxes/islet-manifest.tmLanguage.json"
+      },
+      {
+        "language": "monorepo-manifest",
+        "scopeName": "source.monorepo-manifest",
+        "path": "./syntaxes/monorepo-manifest.tmLanguage.json"
+      },
+      {
+        "language": "islet-lock",
+        "scopeName": "source.islet-lock",
+        "path": "./syntaxes/islet-lock.tmLanguage.json"
       }
     ],
     "snippets": [

@@ -1,0 +1,5 @@
+{
+  "name": "Monorepo Manifest",
+  "scopeName": "source.monorepo-manifest",
+  "patterns": [{ "include": "source.pelago-manifest" }]
+}

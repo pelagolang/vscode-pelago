@@ -10,3 +10,6 @@ Copies of the Pelago brand assets from [`pelagolang/pelago`](https://github.com/
 | `file-icon-dark.svg` | `editor/file-icons/pel-solid-dark.svg` |
 | `manifest-icon-light.svg` | `editor/file-icons/pelago-yaml-solid.svg` |
 | `manifest-icon-dark.svg` | `editor/file-icons/pelago-yaml-solid-dark.svg` |
+| `islet-yaml-light.svg`, `islet-yaml-dark.svg` | `brand/editor/file-icons/islet-yaml.svg`, `islet-yaml-dark.svg` in [`pelagolang/islet`](https://github.com/pelagolang/islet) |
+| `monorepo-yaml-*.svg` | `brand/editor/file-icons/monorepo-yaml*.svg` in `pelagolang/islet` |
+| `islet-lock-*.svg` | `brand/editor/file-icons/islet-lock*.svg` in `pelagolang/islet` |

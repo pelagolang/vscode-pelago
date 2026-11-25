@@ -77,5 +77,51 @@
       "}"
     ],
     "description": "test"
+  },
+  "braid": {
+    "prefix": "braid",
+    "body": [
+      "const ${1:name}: braid<${2:int}, ${3:string}; ${4:4}> = ($0)"
+    ],
+    "description": "braid: N slots with alternating types"
+  },
+  "guard": {
+    "prefix": "guard",
+    "body": [
+      "guard ${1:value} is ${2:pattern} else { ${0:return} }"
+    ],
+    "description": "guard with else"
+  },
+  "defer": {
+    "prefix": "defer",
+    "body": [
+      "defer ${0:cleanup()}"
+    ],
+    "description": "defer a call to scope exit"
+  },
+  "impl": {
+    "prefix": "impl",
+    "body": [
+      "impl ${1:interface} for ${2:type} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "impl block"
+  },
+  "import": {
+    "prefix": "import",
+    "body": [
+      "import { ${1:name} } = std.${0:module}"
+    ],
+    "description": "import names from std"
+  },
+  "while": {
+    "prefix": "while",
+    "body": [
+      "while ${1:condition} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "while loop"
   }
 }
