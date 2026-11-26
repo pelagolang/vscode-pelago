@@ -38,7 +38,7 @@ The extension starts `pelago lsp` for every `.pel` file, so syntax and type erro
 2. Open a `.pel` file. If the binary cannot be started you get an error message with an **Open Settings** button.
 3. After changing the setting, run **Pelago: Restart Language Server** from the Command Palette.
 
-`pelago.semanticHighlighting` (off by default) lets the server's semantic tokens recolour code; leave it off to keep the TextMate colours.
+`pelago.semanticHighlighting` (on by default) lets the server's semantic tokens refine the colours (functions versus methods, types versus variables); turn it off to keep only the TextMate colours.
 
 ## Licence
 
