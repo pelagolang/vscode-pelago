@@ -330,8 +330,8 @@
         },
         "pelago.semanticHighlighting": {
           "type": "boolean",
-          "default": false,
-          "markdownDescription": "Use the language server's semantic tokens for colouring. Off by default so the TextMate colours stay as designed."
+          "default": true,
+          "markdownDescription": "Use the language server's semantic tokens for colouring (functions versus methods, types versus variables). Turn it off to keep only the TextMate colours."
         }
       }
     },

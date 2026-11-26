@@ -2,6 +2,7 @@
 
 ## 0.2.0
 
+- `pelago.semanticHighlighting` is now on by default, so the server's semantic tokens refine the colours (functions versus methods, types versus variables). Set it to false to keep only the TextMate colours.
 - `islet.yaml`, `monorepo.yaml` and `islet.lock` (the package manager Islet's files) get their own languages with the Islet file icons and the same small YAML colouring as `pelago.yaml`. They use only your theme's colours.
 - New snippets: `braid`, `guard`, `defer`, `impl`, `import` and `while`.
 - The short spellings `x!` (`inout x`) and `x!!` (`sink x`) get the same scope as the marks on calls (`keyword.operator.mark`), so they look like the call marks. `!=` and `!x` are unchanged.

@@ -33,7 +33,7 @@ async function start() {
     await reportMissing(command);
     return;
   }
-  const semantic = vscode.workspace.getConfiguration("pelago").get("semanticHighlighting");
+  const semantic = vscode.workspace.getConfiguration("pelago").get("semanticHighlighting") !== false;
   client = new LanguageClient(
     "pelago",
     "Pelago Language Server",
@@ -43,7 +43,7 @@ async function start() {
       middleware: semantic
         ? {}
         : {
-            // The TextMate colours are the look of Pelago; semantic tokens stay opt-in.
+            // Turned off by the user: keep only the TextMate colours.
             provideDocumentSemanticTokens: async () => null,
             provideDocumentSemanticTokensEdits: async () => null,
             provideDocumentRangeSemanticTokens: async () => null,
