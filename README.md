@@ -4,7 +4,7 @@ Syntax highlighting, bracket and comment settings and snippets for [Pelago](http
 
 ## Install
 
-The extension is on the Visual Studio Marketplace as **Pelago** (`pelagolang.pelago`). In VS Code, open the Extensions view, search for "Pelago" and choose Install, or run `code --install-extension pelagolang.pelago` (PowerShell works the same).
+The extension is on the Visual Studio Marketplace as **Pelago** (`pelagolang.pelago`). In VS Code, open the Extensions view, search for "Pelago" and choose Install, or run `code --install-extension pelagolang.pelago` (PowerShell works the same). It is also on [Open VSX](https://open-vsx.org/extension/pelagolang/pelago) for VSCodium and other editors that use it.
 
 To try a build from this repository instead: `npm ci` then `npm run package` (Node 22 or later; works the same in PowerShell) writes
 `dist/pelago-<version>.vsix`. In VS Code: Extensions view, `...` menu, "Install from VSIX...". CI builds the same file on every push (the `vsix` artifact), and the `release` workflow attaches it to a GitHub release when a tag `v<version>` is pushed (or when run by hand from the Actions tab).
